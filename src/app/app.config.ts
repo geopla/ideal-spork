@@ -2,10 +2,17 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import {provideStore} from '@ngrx/store';
+import {booksReducer} from './state/books.reducer';
+import {collectionReducer} from './state/collection.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes)
+    provideRouter(routes),
+    provideStore({
+      books: booksReducer,
+      collection: collectionReducer
+    })
   ]
 };
