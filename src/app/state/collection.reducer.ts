@@ -9,7 +9,7 @@ export const collectionReducer = createReducer(
 
   on(BooksActions.addBook,
     (state, {bookId}) => {
-      if (state.filter((id) => id != bookId)) {
+      if (state.indexOf(bookId) > -1) {
         // nuffin changed, no new instance required to honor purity
         return state;
       }
