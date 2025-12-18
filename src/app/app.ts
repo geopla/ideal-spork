@@ -38,7 +38,6 @@ export class App implements OnInit {
   }
 
   onAdd(bookId: string) {
-    console.debug("adding book to collection")
     this.store.dispatch(BooksActions.addBook({bookId}))
   }
 
