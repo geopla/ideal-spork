@@ -8,13 +8,14 @@ import {AsyncPipe} from '@angular/common';
 import {BookApiActions, BooksActions} from './state/books.actions';
 import {BookCollection} from './book-collection/book-collection';
 import {DiscworldBooksService} from './books';
+import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   imports: [
     BookList,
     AsyncPipe,
-    BookCollection
+    BookCollection,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'
@@ -34,7 +35,7 @@ export class App implements OnInit {
 
   ngOnInit(): void {
     this.booksService.getBooks()
-      .subscribe((books) => this.store.dispatch(BookApiActions.retrievedBookList({books})))
+      .subscribe((books) => this.store.dispatch(BookApiActions.loadBooks()))
   }
 
   onAdd(bookId: string) {
