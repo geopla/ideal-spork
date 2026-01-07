@@ -2,6 +2,9 @@
 
 Just for getting my feet wet with redux.
 
+## Howto
+- JSON Mock sever: npm run mock:server
+
 ## TODOS
 - Update ngrx to match Angular version when available
 

@@ -11,7 +11,5 @@ export const booksReducer = createReducer(
   // NOTE underscore is convention for unused parameter
   // NOTE {books} direct access of payload object property 'books'
 
-  on(BookApiActions.retrievedBookList,
-    (_state, {books}) => books
-  )
+  on(BookApiActions.loadBooksSuccess, (_state, { books }) => books)
 )

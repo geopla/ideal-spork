@@ -8,7 +8,6 @@ import {AsyncPipe} from '@angular/common';
 import {BookApiActions, BooksActions} from './state/books.actions';
 import {BookCollection} from './book-collection/book-collection';
 import {DiscworldBooksService} from './books';
-import {HttpClientModule} from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

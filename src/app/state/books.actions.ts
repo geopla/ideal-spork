@@ -15,7 +15,6 @@ export const BookApiActions = createActionGroup({
   events: {
     'Load Books': emptyProps(),
     'Load Books Success': props<{ books: ReadonlyArray<Book> }>(),
-    'Load Books Failure': props<{ error: any }>(),
-    'Retrieved Book List': props<{ books: ReadonlyArray<Book> }>()
+    'Load Books Failure': props<{ error: any }>()
   }
 })

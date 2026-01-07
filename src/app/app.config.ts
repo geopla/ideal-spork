@@ -22,4 +22,4 @@ export const appConfig: ApplicationConfig = {
       logOnly: !isDevMode() }),
     provideHttpClient()
   ]
-};
+}
