@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { DiscworldBooksService } from '../books';
 import { BookApiActions } from './books.actions';
@@ -6,6 +6,9 @@ import { catchError, map, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class BooksEffects {
+  private actions$ = inject(Actions)
+  private booksService = inject(DiscworldBooksService)
+
   loadBooks$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookApiActions.loadBooks),
@@ -17,9 +20,4 @@ export class BooksEffects {
       )
     )
   );
-
-  constructor(
-    private actions$: Actions,
-    private booksService: DiscworldBooksService
-  ) {}
 }

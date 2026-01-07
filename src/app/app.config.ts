@@ -9,6 +9,7 @@ import {collectionReducer} from './state/collection.reducer';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {provideHttpClient} from '@angular/common/http';
 import {provideEffects} from '@ngrx/effects';
+import {BooksEffects} from './state/books.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
       books: booksReducer,
       collection: collectionReducer
     }),
-    provideEffects(),
+    provideEffects(BooksEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode() }),
