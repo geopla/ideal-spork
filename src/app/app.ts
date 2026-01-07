@@ -33,8 +33,7 @@ export class App implements OnInit {
   }
 
   ngOnInit(): void {
-    this.booksService.getBooks()
-      .subscribe((books) => this.store.dispatch(BookApiActions.loadBooks()))
+    this.store.dispatch(BookApiActions.loadBooks())
   }
 
   onAdd(bookId: string) {

@@ -1,23 +1,50 @@
-import { TestBed } from '@angular/core/testing';
-import { App } from './app';
+import {App} from './app';
+import {render, screen} from '@testing-library/angular';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
+import {provideHttpClient} from '@angular/common/http';
+import {provideStore} from '@ngrx/store';
+import {booksReducer} from './state/books.reducer';
+import {collectionReducer} from './state/collection.reducer';
+import {provideEffects} from '@ngrx/effects';
+import {BooksEffects} from './state/books.effects';
 
 describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [App],
-    }).compileComponents();
-  });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  it('should show a list of books to select from', async () => {
+    const { fixture } = await render(App, {
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideStore({
+          books: booksReducer,
+          collection: collectionReducer
+        }),
+        provideEffects(BooksEffects),
+      ]
+    })
+    const httpController = fixture.debugElement.injector.get(HttpTestingController)
 
-  it('should render title', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, book-list');
-  });
-});
+    // is there a HTTP request?
+    const req = httpController.expectOne('http://localhost:3000/books')
+
+    // ... then mock the response
+    req.flush([{
+      id: '42',
+      volumeInfo: {
+        title: 'The Long Earth',
+        authors: [
+          'Steven Baxter', 'Terry Pratchett'
+        ]
+      }
+    }])
+
+    // complete all asynchronous tasks
+    await fixture.whenStable()
+
+    // and trigger changes in component
+    fixture.detectChanges()
+
+    expect(screen.getByText('The Long Earth')).toBeDefined();
+  })
+
+})
